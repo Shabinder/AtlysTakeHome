@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import com.shabinder.tmdb.api.TMDBApiService
 import com.shabinder.tmdb.models.Movie
+import com.shabinder.tmdb.ui.theme.TmdbTheme
 
 @Composable
 fun MovieDetailScreenUI(
@@ -56,13 +57,15 @@ fun MovieDetailScreenUI(
 @Preview(showBackground = true)
 @Composable
 private fun MovieDetailScreenUIPreview() {
-    MovieDetailScreenUI(
-        movie = Movie(
-            id = 1,
-            title = "Movie Title",
-            overview = "Movie Overview",
-            posterPath = "/poster.jpg",
-        ),
-        onBackClick = {}
-    )
+    TmdbTheme {
+        MovieDetailScreenUI(
+            movie = Movie(
+                id = 1,
+                title = "Movie Title",
+                overview = "Movie Overview",
+                posterPath = "/poster.jpg",
+            ),
+            onBackClick = {}
+        )
+    }
 }

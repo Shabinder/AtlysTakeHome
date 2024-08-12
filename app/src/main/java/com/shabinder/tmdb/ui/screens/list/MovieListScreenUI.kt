@@ -29,6 +29,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
@@ -56,6 +57,7 @@ import com.shabinder.tmdb.ui.MovieViewModel
 import com.shabinder.tmdb.ui.components.BasicErrorUI
 import com.shabinder.tmdb.ui.components.BasicLoaderUI
 import com.shabinder.tmdb.ui.MovieViewModel.MovieResult
+import com.shabinder.tmdb.ui.theme.TmdbTheme
 
 @Composable
 fun MovieListScreenUI(
@@ -162,7 +164,19 @@ fun SearchBar(
                 }
             }
         },
-        modifier = modifier
+        modifier = modifier,
+        colors = OutlinedTextFieldDefaults.colors(
+            unfocusedContainerColor = MaterialTheme.colorScheme.tertiaryContainer,
+            focusedContainerColor = MaterialTheme.colorScheme.tertiaryContainer,
+            unfocusedBorderColor = MaterialTheme.colorScheme.onTertiaryContainer,
+            unfocusedLabelColor = MaterialTheme.colorScheme.onTertiaryContainer,
+            unfocusedLeadingIconColor = MaterialTheme.colorScheme.onTertiaryContainer,
+            unfocusedPlaceholderColor = MaterialTheme.colorScheme.onTertiaryContainer,
+            unfocusedTextColor = MaterialTheme.colorScheme.onTertiaryContainer,
+            unfocusedTrailingIconColor = MaterialTheme.colorScheme.onTertiaryContainer,
+            focusedBorderColor = MaterialTheme.colorScheme.onPrimaryContainer,
+        ),
+        shape = MaterialTheme.shapes.medium
     )
 }
 
@@ -227,31 +241,33 @@ private fun MovieItem(
 @Preview(showBackground = true)
 @Composable
 private fun MovieListScreenUIPreview() {
-    MovieListScreenUI(
-        query = "",
-        isSearching = false,
-        state = MovieResult.Success(
-            List(10) {
-                Movie(
-                    id = it,
-                    title = "Movie Name $it",
-                    overview = "Overview of Movie $it",
-                    posterPath = "/poster.jpg",
-                )
-            }
-        ),
-        searchState = MovieResult.Success(
-            List(5) {
-                Movie(
-                    id = it,
-                    title = "Search Movie $it",
-                    overview = "Overview of Search Movie $it",
-                    posterPath = "/search_poster.jpg",
-                )
-            }
-        ),
-        onQueryChange = {},
-        onMovieClick = {},
-        modifier = Modifier.fillMaxSize()
-    )
+    TmdbTheme {
+        MovieListScreenUI(
+            query = "",
+            isSearching = false,
+            state = MovieResult.Success(
+                List(10) {
+                    Movie(
+                        id = it,
+                        title = "Movie Name $it",
+                        overview = "Overview of Movie $it",
+                        posterPath = "/poster.jpg",
+                    )
+                }
+            ),
+            searchState = MovieResult.Success(
+                List(5) {
+                    Movie(
+                        id = it,
+                        title = "Search Movie $it",
+                        overview = "Overview of Search Movie $it",
+                        posterPath = "/search_poster.jpg",
+                    )
+                }
+            ),
+            onQueryChange = {},
+            onMovieClick = {},
+            modifier = Modifier.fillMaxSize()
+        )
+    }
 }

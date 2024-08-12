@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
+    alias(libs.plugins.kotlinx.serialization)
 }
 
 val tmdbApiKey: String = gradleLocalProperties(rootDir, providers).getProperty("tmdbApiKey")
@@ -12,12 +13,12 @@ val tmdbApiKey: String = gradleLocalProperties(rootDir, providers).getProperty("
 
 android {
     namespace = "com.shabinder.tmdb"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.shabinder.tmdb"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -49,6 +50,10 @@ android {
         compose = true
         buildConfig = true
     }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.14"
+    }
 }
 
 dependencies {
@@ -65,12 +70,13 @@ dependencies {
     implementation(libs.compose.navigation)
 
     implementation(libs.kotlinx.coroutines)
+    implementation(libs.kotlinx.serialization)
 
     implementation(libs.coil.core)
     implementation(libs.coil.compose)
 
     implementation(libs.retrofit)
-    implementation(libs.retrofit.gson)
+    implementation(libs.retrofit.kotlinx)
 
     implementation(libs.hilt.android)
     implementation(libs.hilt.compose)

@@ -3,6 +3,9 @@ package com.shabinder.tmdb.ui.components
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -21,13 +24,19 @@ fun BasicErrorUI(
     message: String,
     modifier: Modifier = Modifier,
     textStyle: TextStyle = MaterialTheme.typography.bodyLarge,
+    content: (@Composable ColumnScope.() -> Unit)? = null,
 ) {
     Column(
         modifier = modifier,
-        horizontalAlignment = Alignment.CenterHorizontally,
+        horizontalAlignment = Alignment.Start,
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         var moreDetailsShown by remember { mutableStateOf(false) }
+
+        if (content != null) {
+            content()
+            Spacer(modifier = Modifier.height(16.dp))
+        }
 
         Text(
             text = "OOPS!",
